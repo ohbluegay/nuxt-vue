@@ -9,8 +9,13 @@ export default {
     data() {
         return { project: 'default' }
     },
-    asyncData(context) {
+    asyncData({ params }, callback) {
         return { project: 'nuxt' }
+    }
+    asyncData({ params }, callback) {
+        axios.get(`https://my-api/posts/${params.id}`).then(res => {
+            callback(null, { title: res.data.title })
+        })
     }
 }
 ```
